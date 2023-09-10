@@ -18,8 +18,21 @@ await ahmed.save()
 await User.find({})
 await ((users)=>{
 
-  asswert(users.length===1)
+  assert(users.length===1)
   assert(user[0].name === 'Alex')
 })
   });
+
+
+
+  it ('A model class can update', async () => {
+    await User.updateMany({name:'Ahmed'}, {name:'Mohamed'})
+  })
+
+  it ('A model class can find a record and update', async () => {
+    await User.findOneAndUpdate({name:'Ahmed'}, {name:'My'})
+  })
+  it ('A model class can find a record with an Id and update', async () => {
+    await User.findByIdAndUpdate(ahmed._id , {name:'Yassin'})
+  })
 });
