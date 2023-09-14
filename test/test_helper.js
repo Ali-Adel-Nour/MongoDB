@@ -2,31 +2,37 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise
 
-//execution one time
-before(()=>{
+//execution one timeconst mongoose = require('mongoose');
 
-  mongoose.connect('mongodb://127.0.0.1:27017/users_test',{
-    useNewUrlParser: true, // Use the new URL parser
-    useUnifiedTopology: true,
-    })
-    mongoose.connection
-    .once('open',()=> console.log('Good to go!'))
+before(async () => {
+  try {
+    await mongoose.connect('mongodb://127.0.0.1:27017/users_test', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    .on('error',(error)=>{
-      console.warn('Warning:',error);
-    })
+    mongoose.connection.on('open', () => {
+      console.log('Connected to MongoDB');
+    });
 
-})
+    mongoose.connection.on('error', (error) => {
+      console.warn('Warning:', error);
+    });
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+});
+
 
 
 //Hook
-beforeEach((done)=>{
+beforeEach(async()=>{
 
-  mongoose.connection.collections.users.drop(()=>{
+ await  mongoose.connection.collections.users.drop(()=>{
 
     //Ready to run the next test
 
-    done()
+
 
   })
 })

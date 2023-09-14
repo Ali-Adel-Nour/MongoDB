@@ -48,7 +48,8 @@ describe('Reading users of the database', () => {
     assert(user.name === 'Ali');
   })
 
-  it('A model istance can update', async () => {
+  it('A user can have their postcount incremented by 1 ', async () => {
+    await ali.set('postCount', 1);
+});
 
-  })
 });
